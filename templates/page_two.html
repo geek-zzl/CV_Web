@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{{img_data[0]['name']}}</title>
+    <style>
+        .image-container {
+            margin: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .image {
+            margin: 10px;
+            flex-basis: auto;
+            flex-grow: 0;
+        }
+
+        img {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+        .image p {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+
+        .button {
+            margin-top: 20px;
+            text-align: right;
+        }
+        .button button {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 0.5rem 1rem;
+            font-size: 1.2rem;
+            border-radius: 0.25rem;
+        }
+        .button button:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{img_data[0]['name']}} 图片展示</h1>
+    <div class="image-container">
+        {% for img in img_data %}
+            <div class="image">
+                <img src="{{img['data']}}" alt="{{img['name']}}">
+                <p>{{ img['source'] }}_{{img['name']}}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="button">
+        <form action="/" method="get">
+            <button type="submit">返回</button>
+        </form>
+    </div>
+</body>
+</html>

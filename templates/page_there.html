@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ label }} Images</title>
+</head>
+<body>
+    <h1>Images for Label {{ label }}:</h1>
+
+    {% for key, value in img_data.items() %}
+        <h2>{{ key }}</h2>
+        <div style="display: flex;">
+            {% for image in value %}
+                <div style="flex: 1 0 0; margin-right: 2px;">
+                    <img src="{{ image.data }}" alt="{{ image.name }}" style="max-width: 100%; height: auto;">
+                    <p style="margin-top: 5px; margin-bottom: 10px; text-align: center;">{{ image.name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</body>
+</html>

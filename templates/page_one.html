@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Main</title>
+    <!-- 引入 bootstrap 的 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container-fluid">
+
+    <div class="header">
+        <h1>原图 - Page {{ page }}</h1>
+    </div>
+
+    <div class="gallery">
+        <div class="card-deck">
+            {% for image in images %}
+                <div class="card mb-4" style="max-width: 170px; max-height: 170px">
+                    <a href="/page2?name={{ image.name }}"><img src="{{ image.data }}" alt="..."
+                                                                class="img-thumbnail card-img-top"
+                                                                style="max-width: 200px; max-height: 200px;"></a>
+                    <div class="card-body">
+                        <p class="card-text">{{ image.name }}</p>
+                    </div>
+                </div>
+                {% if loop.index % 17 == 0 %}
+                    </div>
+                    <div class="card-deck">
+                {% endif %}
+            {% endfor %}
+            </div>
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page > 1 %}
+                <li class="page-item"><a class="page-link" href="?page={{ page-1 }}">&laquo;</a></li>
+            {% endif %}
+
+            {% if page > 6 %}
+                <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                {% if page > 7 %}
+                    <li class="page-item"><a class="page-link">...</a></li>
+                {% endif %}
+            {% endif %}
+
+            {% set page_lower = (1, page-5)|max %}
+            {% set page_upper = (51, page+6)|min %}
+
+            {% for p in range(page_lower, page_upper) %}
+                {% if p == page %}
+                    <li class="page-item active"><a class="page-link">{{ p }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page < 45 %}
+                {% if page < 44 %}
+                    <li class="page-item"><a class="page-link">...</a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" href="?page={{ 50 }}">{{ 50 }}</a></li>
+            {% endif %}
+
+            {% if page < 50 %}
+                <li class="page-item"><a class="page-link" href="?page={{ page+1 }}">&raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+
+    <div class="header text-center">
+        <h1>目标预测类别</h1>
+    </div>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-sm-8">
+                <form action="/page3" method="POST">
+                    <div class="form-group row">
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="inputText" name="label"
+                                   placeholder="请输入标签名称">
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="submit" class="btn btn-primary btn-block">提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- 引入 bootstrap 的 JavaScript -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNS"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
